@@ -6,7 +6,7 @@ such as dating apps provide matching algorithms to connect users who share simil
 
 ## Brief Explanation
 There are two clients and four servers in the model. The topo is as follows:
-![topo](https://github.com/dlwsdqdws/socket-pro/blob/main/images/QQ20211118-191307%402x.png)
+<p align="center"><img src="images/QQ20211118-191307%402x.png" alt="Trojan" width="500" /></p>
 ### Phase 1
 #### Phase 1A
 **Establish the connections between the Clients and Central Server.**
@@ -52,20 +52,23 @@ Just as said above, all the processes are finished successfully under this condi
 ## Examples
 ### Example #1: ClientA sends ONE name and ClinetB sends ONE name.
 The graph is as follows:
-![Sample Graph](https://github.com/dlwsdqdws/socket-pro/blob/main/images/QQ20211118-190938%402x.png)
+<p align="center"><img src="images/QQ20211118-190938%402x.png" alt="Trojan" width="500" /></p>
+
 **Firstly**, booting up central server, server T, server S, server P. Then, say, cleint A sends "Victor" to Central and client B sends "Oliver" to central. 
 
-![clineta](https://github.com/dlwsdqdws/socket-pro/blob/main/images/aout1.png)
+<p align="center"><img src="images/aout1.png" alt="Trojan" width="500" /></p>
+
 <br> Client A prints a message: 
 *The client sent "Victor" to the Central server.* in this step.
 
-![clientb](https://github.com/dlwsdqdws/socket-pro/blob/main/images/bout1.png)
+<p align="center"><img src="images/bout1.png" alt="Trojan" width="500" /></p>
+
 <br> Client B prints a message:
 *The client sent "Oliver" to the Central server.* in this step.
 
 **Secondly**, the central receives the two names, integrate them into a name char array(which is "Victor+Oliver" is this case), send this char array to server T, server S in turn. Server T will encode the graph and then send the topology to the Central(The topology data is "Rachael+Victor\*Rachael+King\*Rachael+Oliver\*Victor+King\*Rachit+Hanieh\*" in this case). Server S will encode the scores and then send the scores to de Central(The scroes data is "Rachael+43\*King+3\*Oliver+94\*Victor+8\*Rachit+129\*Hanieh+49\*" in this case). After receiving the topology and scores, the Central will relay these data to Server P and again send the name char memtioned above to Server P. Server P will run a Dijkstra and get the results, encode the result and then send the result data to the Central. The result data in this condition is "$N$1.06\*Oliver+Rachael+Victor+#". Again, according to the encoding rules in Brief Explanation, the hearder of result data "$N$" means that the server requests only for one path and this path exists.
 
-![central](https://github.com/dlwsdqdws/socket-pro/blob/main/images/cout.png)
+<p align="center"><img src="images/cout.png" alt="Trojan" width="500" /></p>
 
 **Thirdly**, the Central receives the result data from Server P, and sends the data back to both clients using TCP. The clients receives the result then decode the result with the protocol above, finnaly print the result. 
 
@@ -74,20 +77,22 @@ From the result we can see that, the smallest matching gap between "Victor" and 
 ### Example #2: ClientA sends ONE name and ClinetB sends TWO names.
 Very similar to Example #1. But in this case, Client B sends TWO names to the Central, which are "Rachael" and "Rachit", as shown below.
 
-![a2](https://github.com/dlwsdqdws/socket-pro/blob/main/images/aout2.png)
+<p align="center"><img src="images/aout2.png" alt="Trojan" width="500" /></p>
 
-![b2](https://github.com/dlwsdqdws/socket-pro/blob/main/images/bout2.png)
+<p align="center"><img src="images/bout2.png" alt="Trojan" width="500" /></p>
+
 
 The result getting from Server P is "$Y@0.69\*Rachael+Victor+#Victor+Rachit+". The header "$Y@" means the Central requests for TWO paths but only the first path exists.
 
 The example result of Central, ServerT, ServerS, ServerP are as follows:
-![c](https://github.com/dlwsdqdws/socket-pro/blob/main/images/cout2.png)
+<p align="center"><img src="images/aout2.png" alt="Trojan" width="500" /></p>
 
-![t](https://github.com/dlwsdqdws/socket-pro/blob/main/images/tout.png)
+<p align="center"><img src="images/tout.png" alt="Trojan" width="500" /></p>
 
-![s](https://github.com/dlwsdqdws/socket-pro/blob/main/images/sout.png)
+<p align="center"><img src="images/sout.png" alt="Trojan" width="500" /></p>
 
-![p](https://github.com/dlwsdqdws/socket-pro/blob/main/images/pout.png)
+<p align="center"><img src="images/pout.png" alt="Trojan" width="500" /></p>
+
 
 Note that we can see FOUR lines in ServerT, ServerS and ServerP because I did example #1 and example #2 continously. So the first half belongs to example #1 and the second half belongs to example #2.
 
